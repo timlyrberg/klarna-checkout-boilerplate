@@ -9,8 +9,8 @@
 5. Create an .env file that looks like this: 
 ```
 PORT=3000
-PUBLIC_KEY=PK47125_962053b37cdb     # PLEASE REPLACE WITH YOUR KLARNA API PUBLICKEY
-SECRET_KEY=YjKEnheUIegnZR2Q         # PLEASE REPLACE WITH YOUR KLARNA API PUBLICKEY
+PUBLIC_KEY=PK47125_962053b37cdb     # PLEASE REPLACE WITH YOUR KLARNA API PUBLIC-KEY
+SECRET_KEY=YjKEnheUIegnZR2Q         # PLEASE REPLACE WITH YOUR KLARNA API SECRET-KEY
 ```
 6. Run `sudo npm install -g nodemon` in the terminal.
 7. Run `npm run dev` in the terminal.
