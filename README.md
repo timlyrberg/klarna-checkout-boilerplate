@@ -2,7 +2,7 @@
 
 ## How to install
 
-1. Clone the git repo in the terminal using `git clone https://github.com/MMR-Solutions-AB/klarna-checkout-boilerplate.git`.
+1. Fork this git repo and then clone your repo with `git clone`.
 2. Run `cd klarna-checkout-boilerplate` in the terminal.
 3. Run `npm i` in the terminal.
 4. Create a Klarna Playground Account + Klarna Playground API Key that you will use below:
