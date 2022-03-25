@@ -9,14 +9,12 @@ const index = require('../routes/client/index');
 const confirmation = require('../routes/client/confirmation');
 
 // Server Route Code
-const orderLines = require('../routes/server/push');
+const orderLines = require('../routes/server/order-lines');
 const push = require('../routes/server/push');
 
 // Server & Client (Error) Route Code
 const notFound = require('../routes/both/404.js');
 const serviceUnavailable = require('../routes/both/500.js');
-
-
 
 /**
  * 	Set URLS for our Routes
@@ -32,6 +30,5 @@ app.use('/order-lines', orderLines);
 // Set Server & Client (Error) Route URLS
 app.use('/500', serviceUnavailable);
 app.use('*', notFound); // Always keep as last route
-
 
 module.exports = app;
