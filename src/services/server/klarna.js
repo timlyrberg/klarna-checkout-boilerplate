@@ -7,8 +7,41 @@ function getKlarnaAuth() {
 	return auth;
 }
 
+function formatAsOrderLines(currentCart) {
+	currentCart.forEach((item) => {
+		item.total_amount = item.quantity * item.unit_price;
+		item.total_tax_amount = item.total_amount - (item.total_amount * 10000) / (10000 + item.tax_rate);
+	});
+	return currentCart;
+}
+
+function formatProduct(product) {
+	return {
+		type: 'physical', // same
+		reference: product.id,
+		name: product.title,
+		quantity: 1, // As a challenge, this value should be dynamic so that we can buy multiple items
+		quantity_unit: 'pcs', // same
+		unit_price: parseInt(product.price) * 100,
+		tax_rate: 2500, // same
+		total_discount_amount: 0, // same
+		image_url: product.image
+	};
+}
+
 // 1. Add async createOrder function that returns Klarna response.json()
-async function createOrder() {
+async function createOrder(product) {
+	const formattedProduct = formatProduct(product);
+	const order_lines = formatAsOrderLines([formattedProduct]);
+
+	let order_amount = 0;
+	let order_tax_amount = 0;
+
+	order_lines.forEach((item) => {
+		order_amount += item.total_amount;
+		order_tax_amount += item.total_tax_amount;
+	});
+
 	// Sub Parts
 	const path = '/checkout/v3/orders';
 	const auth = getKlarnaAuth();
@@ -26,28 +59,24 @@ async function createOrder() {
 		purchase_country: 'SE',
 		purchase_currency: 'SEK',
 		locale: 'sv-SE',
-		order_amount: 50000,
-		order_tax_amount: 4545,
-		order_lines: [
-			{
-				type: 'physical',
-				reference: '19-402-USA',
-				name: 'Red T-Shirt',
-				quantity: 5,
-				quantity_unit: 'pcs',
-				unit_price: 10000,
-				tax_rate: 1000,
-				total_amount: 50000,
-				total_discount_amount: 0,
-				total_tax_amount: 4545
-			}
-		],
+		order_amount: order_amount,
+		order_tax_amount: order_tax_amount,
+		order_lines,
 		merchant_urls: {
 			terms: 'https://www.example.com/terms.html',
 			checkout: 'https://www.example.com/checkout.html',
 			confirmation: `${process.env.CONFIRMATION_URL}/confirmation?order_id={checkout.order.id}`,
 			push: 'https://www.example.com/api/push'
-		}
+		},
+		shipping_options: [
+			{
+				id: 'express_priority',
+				name: 'Techover EXPRESS 1-2 full moons',
+				price: 39 * 100,
+				tax_amount: 0,
+				tax_rate: 0
+			}
+		]
 	};
 
 	const body = JSON.stringify(payload);
