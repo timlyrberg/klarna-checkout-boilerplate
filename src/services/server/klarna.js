@@ -63,6 +63,28 @@ async function createOrder() {
 	}
 }
 // 2. Add async retrieveOrder function that returns Klarna response.json()
+async function retrieveOrder(order_id) {
+	// Sub Parts
+	const path = '/checkout/v3/orders/' + order_id;
+	const auth = getKlarnaAuth();
+
+	// Main Parts
+	const url = process.env.BASE_URL + path;
+	const method = 'GET'; // GET, POST, PUT, DELETE
+	const headers = { Authorization: auth };
+	const response = await fetch(url, { method, headers });
+
+	// "200" is success from Klarna KCO docs
+	if (response.status === 200 || response.status === 201) {
+		const jsonResponse = await response.json();
+		return jsonResponse;
+	} else {
+		console.error('ERROR: ', response.status, response.statusText);
+		return {
+			html_snippet: `<h1>${response.status} ${response.statusText}</h1>`
+		};
+	}
+}
 
 // 3. export createOrder and retrieveOrder below, and use them in api/client/index.js and api/client/confirmation.js
-module.exports = { getKlarnaAuth, createOrder };
+module.exports = { getKlarnaAuth, createOrder, retrieveOrder };
