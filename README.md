@@ -10,21 +10,10 @@
 ```
 NODE_ENV=development
 PORT=3000
-DEV_ROOT_URL=http://localhost:3000
-PROD_ROOT_URL=
-# Klarna
-DEV_KLARNA_BASE_URL=api.playground.klarna.com
-PROD_KLARNA_BASE_URL=api.klarna.com
-DEV_KLARNA_PUBLIC_KEY=**************
-PROD_KLARNA_PUBLIC_KEY=
-DEV_KLARNA_SECRET_KEY=**************
-PROD_KLARNA_SECRET_KEY=
-# Klarna Checkout
-KLARNA_MERCHANT_TERMS_URL=http://localhost:3000/terms
-KLARNA_MERCHANT_CHECKOUT_URL=http://localhost:3000
-KLARNA_PURCHASE_COUNTRY=SE
-KLARNA_PURCHASE_CURRENCY=SEK
-KLARNA_LOCALE=sv
+PUBLIC_KEY=************
+SECRET_KEY=************
+CONFIRMATION_URL=https://klarna-checkout-matt.herokuapp.com
+BASE_URL=https://api.playground.klarna.com
 ```
 6. Run `sudo npm install -g nodemon` in the terminal.
 7. Run `npm run dev` in the terminal.
@@ -35,17 +24,17 @@ KLARNA_LOCALE=sv
 OBS: .env file is needed to run project, and is not supplied through the `git clone` command.
 
 ```
-.env                # Environment variables, supplied by @devmattb.
-.app.yaml           # Google Cloud deploy container settings.
+.env                # Environment variables, supplied by @fullstackmac.
 public              # All static and public assets, such as images and videos.
 src
 │   start.js        # App start file
 │   app.js          # App entry point
-└───api             # Express route controllers for all the endpoints of the app
-└───config          # Configuration for environment variables
+└───routes          # Express route controllers for all the endpoints of the app
 └───loaders         # Splits up the startup process into modules
-└───models          # Database models
 └───services        # All the business logic is here
+└───views           # Views that we use together with handlebars.js to render html sent from the server
+└───static          # Static data, for example fake cart items
+
 ```
 
 **Keep in mind that we often group files in to the following categories:**
