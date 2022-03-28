@@ -1,5 +1,5 @@
 /**
- *      This file just imports and initiates Express and Express Handlebars. 
+ *      This file just imports and initiates Express and Express Handlebars.
  */
 const express = require('express');
 const app = express();
@@ -8,7 +8,7 @@ const app = express();
 const path = require('path');
 const exphbs = require('express-handlebars');
 const hbs = exphbs.create({
-    defaultLayout: 'main',
+	defaultLayout: 'main'
 });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
