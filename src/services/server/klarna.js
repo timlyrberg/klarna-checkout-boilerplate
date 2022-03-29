@@ -15,12 +15,12 @@ function formatAsOrderLines(currentCart) {
 	return currentCart;
 }
 
-function formatProduct(product) {
+function formatProduct({ product, quantity }) {
 	return {
 		type: 'physical', // same
 		reference: product.id,
 		name: product.title,
-		quantity: 1, // As a challenge, this value should be dynamic so that we can buy multiple items
+		quantity,
 		quantity_unit: 'pcs', // same
 		unit_price: parseInt(product.price) * 100,
 		tax_rate: 2500, // same
@@ -30,9 +30,9 @@ function formatProduct(product) {
 }
 
 // 1. Add async createOrder function that returns Klarna response.json()
-async function createOrder(product) {
-	const formattedProduct = formatProduct(product);
-	const order_lines = formatAsOrderLines([formattedProduct]);
+async function createOrder(products) {
+	const formattedProduct = products.map(formatProduct);
+	const order_lines = formatAsOrderLines(formattedProduct);
 
 	let order_amount = 0;
 	let order_tax_amount = 0;
