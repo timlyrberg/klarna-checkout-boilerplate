@@ -62,6 +62,14 @@ async function createOrder(products) {
 		order_amount: order_amount,
 		order_tax_amount: order_tax_amount,
 		order_lines,
+		options: {
+			color_button: '#00c896',
+			color_button_text: '#ffffff',
+			color_checkbox: '#00c896',
+			color_checkbox_checkmark: '#00c896',
+			color_header: '#f4f4f4',
+			color_link: '#00c896'
+		},
 		merchant_urls: {
 			terms: 'https://www.example.com/terms.html',
 			checkout: 'https://www.example.com/checkout.html',
